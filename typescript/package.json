@@ -1,0 +1,26 @@
+{
+  "name": "@joshlartz/advent2021",
+  "version": "1.0.0",
+  "description": "Advent of Code 2021",
+  "main": "dist/index.js",
+  "scripts": {
+    "day": "ts-node src/index.ts",
+    "input": "nog -i -y 2021 -d",
+    "problem": "nog -p -y 2021 -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshlartz/advent2021.git"
+  },
+  "author": "Josh Lartz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshlartz/advent2021/issues"
+  },
+  "homepage": "https://github.com/joshlartz/advent2021#readme",
+  "devDependencies": {
+    "@types/node": "^16",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  }
+}
