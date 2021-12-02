@@ -1,4 +1,3 @@
-import { cp } from 'fs';
 import readInput from './readInput';
 
 const input = readInput('2')
