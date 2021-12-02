@@ -4,8 +4,8 @@ const input = readInput('1').map(x => parseInt(x));
 
 const reduce = depths =>
   depths.reduce((acc, depth, index, array) => {
-    // console.log({ depth }, { index }, (depth > array[index-1]) ? 1 : 0);
-    acc += depth > array[index - 1] ? 1 : 0;
+    // console.log({ depth }, { index }, Number(depth > array[index - 1]));
+    acc += Number(depth > array[index - 1]);
     return acc;
   }, 0);
 
