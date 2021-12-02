@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "day": "ts-node src/index.ts",
-    "input": "nog -i -y 2021 -d",
-    "problem": "nog -p -y 2021 -d"
+    "input": "../scripts/input.sh",
+    "problem": "../scripts/problem.sh",
+    "submit": "../scripts/submit-ts.sh"
   },
   "repository": {
     "type": "git",
