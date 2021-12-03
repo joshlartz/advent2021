@@ -1,8 +1,6 @@
 import readInput from './readInput';
 
-const input = readInput('2')
-
-if (process.argv[2] == '1') {
+function part1(input) {
   let depth = 0;
   let horizontal = 0;
 
@@ -16,7 +14,7 @@ if (process.argv[2] == '1') {
   console.log(horizontal * depth);
 }
 
-if (process.argv[2] == '2') {
+function part2(input) {
   let depth = 0;
   let horizontal = 0;
   let aim = 0;
@@ -33,3 +31,31 @@ if (process.argv[2] == '2') {
 
   console.log(horizontal * depth);
 }
+
+if (require.main === module) {
+  const input = readInput('2');
+
+  if (process.argv[2] == '1') part1(input);
+  if (process.argv[2] == '2') part2(input);
+}
+
+import { mockLog } from './tests';
+
+const sample = `forward 5
+down 5
+forward 8
+up 3
+down 8
+forward 2`.split('\n');
+
+test('part1', () => {
+  const logSpy = mockLog();
+  part1(sample);
+  expect(logSpy).toBeCalledWith(150);
+});
+
+test('part2', () => {
+  const logSpy = mockLog();
+  part2(sample);
+  expect(logSpy).toBeCalledWith(900);
+});
