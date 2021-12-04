@@ -1,4 +1,5 @@
 import readInput from './readInput';
+import { mockLog } from './tests';
 
 const reduce = depths =>
   depths.reduce((acc, depth, index, array) => {
@@ -7,7 +8,7 @@ const reduce = depths =>
   }, 0);
 
 function part1(input) {
-   console.log(reduce(input));
+  console.log(reduce(input));
 }
 
 function part2(input) {
@@ -25,11 +26,8 @@ if (require.main === module) {
 
   if (process.argv[2] == '1') part1(input);
   if (process.argv[2] == '2') part2(input);
-}
-
-import { mockLog } from './tests';
-
-const sample = `199
+} else {
+  const sample = `199
 200
 208
 210
@@ -40,14 +38,15 @@ const sample = `199
 260
 263`.split('\n');
 
-test('part1', () => {
-  const logSpy = mockLog();
-  part1(sample);
-  expect(logSpy).toBeCalledWith(7);
-});
+  test('part1', () => {
+    const logSpy = mockLog();
+    part1(sample);
+    expect(logSpy).toBeCalledWith(7);
+  });
 
-test('part2', () => {
-  const logSpy = mockLog();
-  part2(sample);
-  expect(logSpy).toBeCalledWith(5);
-});
+  test('part2', () => {
+    const logSpy = mockLog();
+    part2(sample);
+    expect(logSpy).toBeCalledWith(5);
+  });
+}

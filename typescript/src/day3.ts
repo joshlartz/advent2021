@@ -1,4 +1,5 @@
 import readInput from './readInput';
+import { mockLog } from './tests';
 
 function columnCounts(input: string[]) {
   const columnCounts = new Array(input[0].length).fill(undefined).map(_ => ({ zero: 0, one: 0 }));
@@ -13,8 +14,14 @@ function columnCounts(input: string[]) {
   return columnCounts;
 }
 
-const mostCommon = input => columnCounts(input).map(counts => (counts.one >= counts.zero ? '1' : '0')).join('');
-const leastCommon = input => columnCounts(input).map(counts => (counts.one < counts.zero ? '1' : '0')).join('');
+const mostCommon = input =>
+  columnCounts(input)
+    .map(counts => (counts.one >= counts.zero ? '1' : '0'))
+    .join('');
+const leastCommon = input =>
+  columnCounts(input)
+    .map(counts => (counts.one < counts.zero ? '1' : '0'))
+    .join('');
 
 function part1(input) {
   const gamma = mostCommon(input);
@@ -40,11 +47,8 @@ if (require.main === module) {
 
   if (process.argv[2] == '1') part1(input);
   if (process.argv[2] == '2') part2(input);
-}
-
-import { mockLog } from './tests';
-
-const sample = `00100
+} else {
+  const sample = `00100
 11110
 10110
 10111
@@ -57,14 +61,15 @@ const sample = `00100
 00010
 01010`.split('\n');
 
-test('part1', () => {
-  const logSpy = mockLog();
-  part1(sample);
-  expect(logSpy).toBeCalledWith(198);
-});
+  test('part1', () => {
+    const logSpy = mockLog();
+    part1(sample);
+    expect(logSpy).toBeCalledWith(198);
+  });
 
-test('part2', () => {
-  const logSpy = mockLog();
-  part2(sample);
-  expect(logSpy).toBeCalledWith(230);
-});
+  test('part2', () => {
+    const logSpy = mockLog();
+    part2(sample);
+    expect(logSpy).toBeCalledWith(230);
+  });
+}
