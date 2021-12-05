@@ -4,6 +4,7 @@ import { mockLog } from './tests';
 function part1(input) {
   const lines = parseInput(input);
   const grid = createGrid(input);
+  let overlaps = 0;
 
   lines.forEach(line => {
     if (line[0].x == line[1].x || line[0].y == line[1].y) {
@@ -11,35 +12,41 @@ function part1(input) {
         const [start, end] = line[0].x < line[1].x ? [line[0], line[1]] : [line[1], line[0]];
         for (let x = start.x; x <= end.x; x++) {
           grid[start.y][x]++;
+          if (grid[start.y][x] == 2) overlaps++;
         }
       }
       if (line[0].x == line[1].x) {
         const [start, end] = line[0].y < line[1].y ? [line[0], line[1]] : [line[1], line[0]];
         for (let y = start.y; y <= end.y; y++) {
           grid[y][start.x]++;
+          if (grid[y][start.x] == 2) overlaps++;
         }
       }
     }
   });
 
   // console.log(grid);
-  console.log(findOverlaps(grid));
+  // console.log(findOverlaps(grid));
+  console.log(overlaps);
 }
 
 function part2(input: string[]) {
   const lines = parseInput(input);
   const grid = createGrid(input);
+  let overlaps = 0;
 
   lines.forEach(line => {
     if (line[0].y == line[1].y) {
       const [start, end] = line[0].x < line[1].x ? [line[0], line[1]] : [line[1], line[0]];
       for (let x = start.x; x <= end.x; x++) {
         grid[start.y][x]++;
+        if (grid[start.y][x] == 2) overlaps++;
       }
     } else if (line[0].x == line[1].x) {
       const [start, end] = line[0].y < line[1].y ? [line[0], line[1]] : [line[1], line[0]];
       for (let y = start.y; y <= end.y; y++) {
         grid[y][start.x]++;
+        if (grid[y][start.x] == 2) overlaps++;
       }
     } else {
       let x = line[0].x;
@@ -51,12 +58,14 @@ function part2(input: string[]) {
 
       for (let i = 0; i <= length; i++) {
         grid[y + i * yDirection][x + i * xDirection]++;
+        if (grid[y + i * yDirection][x + i * xDirection] == 2) overlaps++;
       }
     }
   });
 
   // console.log(grid);
-  console.log(findOverlaps(grid));
+  // console.log(findOverlaps(grid));
+  console.log(overlaps);
 }
 
 // x1,y1 -> x2,y2
