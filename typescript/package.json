@@ -8,7 +8,8 @@
     "input": "../scripts/input.sh",
     "problem": "../scripts/problem.sh",
     "submit": "../scripts/submit-ts.sh",
-    "test": "jest"
+    "test": "jest",
+    "watch": "tsc -w"
   },
   "repository": {
     "type": "git",
