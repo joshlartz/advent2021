@@ -21,20 +21,23 @@ function part2(input) {
 function calcFuel(input, mean) {
   return input.reduce((acc, crab) => {
     const distance = Math.abs(mean - crab);
-    return acc + distance + sum([...Array(distance).keys()]);
+    return acc + distance + seriesSum(distance - 1);
   }, 0);
 }
 
+/** expects sorted */
 function findMedian(arr) {
-  const mid = Math.floor(arr.length / 2),
-    nums = [...arr].sort((a, b) => a - b);
-  return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
-};
+  const mid = Math.floor(arr.length / 2);
+  return arr.length % 2 !== 0 ? arr[mid] : (arr[mid - 1] + arr[mid]) / 2;
+}
 
-function sum(arr) { 
+function sum(arr) {
   return arr.reduce((acc, x) => acc + x, 0);
 }
 
+function seriesSum(n) {
+  return (n * (n + 1)) / 2;
+}
 if (require.main === module) {
   const input = readInput('7')[0].split(',').map(x => parseInt(x));
 
