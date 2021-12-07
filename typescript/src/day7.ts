@@ -9,15 +9,20 @@ function part1(input) {
 }
 
 function part2(input) {
-  // const mean = Math.floor(sum(input) / input.length);
+  const flooredMean = Math.floor(sum(input) / input.length);
   // this should be right and passes the tests, but the above gave the right answer
   const mean = Math.round(sum(input) / input.length);
-  console.log('mean:', mean);
-  const fuel = input.reduce((acc, crab) => {
+
+  const fuels = [calcFuel(input, flooredMean), calcFuel(input, mean)];
+  fuels.sort((a, b) => a - b);
+  console.log(fuels[0]);
+}
+
+function calcFuel(input, mean) {
+  return input.reduce((acc, crab) => {
     const distance = Math.abs(mean - crab);
     return acc + distance + sum([...Array(distance).keys()]);
   }, 0);
-  console.log(fuel);
 }
 
 function findMedian(arr) {
@@ -47,8 +52,8 @@ if (require.main === module) {
   });
 
   test('part2', () => {
-    // const logSpy = mockLog();
+    const logSpy = mockLog();
     part2(sample);
-    // expect(logSpy).toBeCalledWith(168);
+    expect(logSpy).toBeCalledWith(168);
   });
 }
