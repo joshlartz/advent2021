@@ -1,46 +1,4 @@
-import readInput from './readInput';
-import { mockLog } from './tests';
-
-function splitInput(input) {
-  const numbers = input[0].split(',');
-  // remove whitespace, chunk into 5 row boards, split columns into matrix, remove whitespace again
-  const boards = chunkArray(
-    input.slice(2).filter(x => x),
-    5
-  ).map(board => board.map(row => row.split(' ').filter(x => x)));
-  return { numbers, boards };
-}
-
-function chunkArray(array, size) {
-  let newArray = [];
-  for (let i = 0; i < array.length; i += size) {
-    newArray.push(array.slice(i, i + size));
-  }
-  return newArray;
-}
-
-/* mirror board sizes to track numbers found */
-function generateBoards(boards) {
-  return new Array(boards.length)
-    .fill(null)
-    .map(() => new Array(5).fill(null).map(() => new Array(5).fill(null).map(() => 0)));
-}
-
-function findBingo(board, row, column) {
-  const rowSum = board[row].reduce((acc, c) => ((acc += c), acc), 0);
-  const columnSum = board.reduce((acc, r, i) => ((acc += board[i][column]), acc), 0);
-  return rowSum == 5 || columnSum == 5;
-}
-
-function sumUnmarked(board, playedBoard) {
-  let sum = 0;
-  for (let row = 0; row < 5; row++) {
-    for (let column = 0; column < 5; column++) {
-      if (!playedBoard[row][column]) sum += parseInt(board[row][column]);
-    }
-  }
-  return sum;
-}
+import { readInput, day, mockLog } from './helpers';
 
 function part1(input) {
   const { numbers, boards } = splitInput(input);
@@ -103,11 +61,61 @@ function part2(input: string[]) {
   }
 }
 
+function splitInput(input) {
+  const numbers = input[0].split(',');
+  // remove whitespace, chunk into 5 row boards, split columns into matrix, remove whitespace again
+  const boards = chunkArray(
+    input.slice(2).filter(x => x),
+    5
+  ).map(board => board.map(row => row.split(' ').filter(x => x)));
+  return { numbers, boards };
+}
+
+function chunkArray(array, size) {
+  let newArray = [];
+  for (let i = 0; i < array.length; i += size) {
+    newArray.push(array.slice(i, i + size));
+  }
+  return newArray;
+}
+
+/* mirror board sizes to track numbers found */
+function generateBoards(boards) {
+  return new Array(boards.length)
+    .fill(null)
+    .map(() => new Array(5).fill(null).map(() => new Array(5).fill(null).map(() => 0)));
+}
+
+function findBingo(board, row, column) {
+  const rowSum = board[row].reduce((acc, c) => ((acc += c), acc), 0);
+  const columnSum = board.reduce((acc, r, i) => ((acc += board[i][column]), acc), 0);
+  return rowSum == 5 || columnSum == 5;
+}
+
+function sumUnmarked(board, playedBoard) {
+  let sum = 0;
+  for (let row = 0; row < 5; row++) {
+    for (let column = 0; column < 5; column++) {
+      if (!playedBoard[row][column]) sum += parseInt(board[row][column]);
+    }
+  }
+  return sum;
+}
+
 if (require.main === module) {
-  const input = readInput('4');
+  const input = readInput(day(__filename));
 
   if (process.argv[2] == '1') part1(input);
-  if (process.argv[2] == '2') part2(input);
+  else if (process.argv[2] == '2') part2(input);
+  else {
+    console.log(`day ${day(__filename)}`);
+    console.time('part1');
+    part1(input);
+    console.timeEnd('part1');
+    console.time('part2');
+    part2(input);
+    console.timeEnd('part2');
+  }
 } else {
   const sample = `7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 

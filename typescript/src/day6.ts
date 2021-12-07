@@ -1,5 +1,4 @@
-import readInput from './readInput';
-import { mockLog } from './tests';
+import { readInput, day, mockLog } from './helpers';
 
 function part1(input, days) {
   console.log(spawnFishAndCount(input, days));
@@ -30,7 +29,7 @@ function spawnFishAndCount(input, days) {
 
 function spawnFish(input: number[], days: number) {
   let fish: number[] = [];
-  input.forEach(f => fish[f] = (fish[f] ?? 0) + 1);
+  input.forEach(f => (fish[f] = (fish[f] ?? 0) + 1));
 
   for (let day = 1; day <= days; day++) {
     const fishCount = fish.shift() ?? 0;
@@ -42,10 +41,19 @@ function spawnFish(input: number[], days: number) {
 }
 
 if (require.main === module) {
-  const input = readInput('6')[0].split(',');
+  const input = readInput(day(__filename))[0].split(',');
 
   if (process.argv[2] == '1') part1(input, 80);
-  if (process.argv[2] == '2') part2(input, 256);
+  else if (process.argv[2] == '2') part2(input, 256);
+  else {
+    console.log(`day ${day(__filename)}`);
+    console.time('part 1');
+    part1(input, 80);
+    console.timeEnd('part 1');
+    console.time('part 2');
+    part2(input, 256);
+    console.timeEnd('part 2');
+  }
 } else {
   const sample = `3,4,3,1,2`.split(',');
 

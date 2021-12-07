@@ -1,5 +1,4 @@
-import readInput from './readInput';
-import { mockLog } from './tests';
+import { readInput, day, mockLog } from './helpers';
 
 function part1(input) {
   let depth = 0;
@@ -34,10 +33,19 @@ function part2(input) {
 }
 
 if (require.main === module) {
-  const input = readInput('2');
+  const input = readInput(day(__filename));
 
   if (process.argv[2] == '1') part1(input);
-  if (process.argv[2] == '2') part2(input);
+  else if (process.argv[2] == '2') part2(input);
+  else {
+    console.log(`day ${day(__filename)}`);
+    console.time('part1');
+    part1(input);
+    console.timeEnd('part1');
+    console.time('part2');
+    part2(input);
+    console.timeEnd('part2');
+  }
 } else {
   const sample = `forward 5
 down 5

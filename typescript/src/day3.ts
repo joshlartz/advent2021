@@ -1,5 +1,23 @@
-import readInput from './readInput';
-import { mockLog } from './tests';
+import { readInput, day, mockLog } from './helpers';
+
+function part1(input) {
+  const gamma = mostCommon(input);
+  const epsilon = leastCommon(input);
+
+  console.log(parseInt(gamma, 2) * parseInt(epsilon, 2));
+}
+
+function part2(input: string[]) {
+  let oxygen = Array.from(input);
+  let co2 = Array.from(input);
+
+  for (let i = 0; i < input[0].length; i++) {
+    if (oxygen.length > 1) oxygen = oxygen.filter(num => mostCommon(oxygen)[i] == num[i]);
+    if (co2.length > 1) co2 = co2.filter(num => leastCommon(co2)[i] == num[i]);
+  }
+
+  console.log(parseInt(oxygen[0], 2) * parseInt(co2[0], 2));
+}
 
 function columnCounts(input: string[]) {
   const columnCounts = new Array(input[0].length).fill(undefined).map(_ => ({ zero: 0, one: 0 }));
@@ -23,30 +41,20 @@ const leastCommon = input =>
     .map(counts => (counts.one < counts.zero ? '1' : '0'))
     .join('');
 
-function part1(input) {
-  const gamma = mostCommon(input);
-  const epsilon = leastCommon(input);
-
-  console.log(parseInt(gamma, 2) * parseInt(epsilon, 2));
-}
-
-function part2(input: string[]) {
-  let oxygen = Array.from(input);
-  let co2 = Array.from(input);
-
-  for (let i = 0; i < input[0].length; i++) {
-    if (oxygen.length > 1) oxygen = oxygen.filter(num => mostCommon(oxygen)[i] == num[i]);
-    if (co2.length > 1) co2 = co2.filter(num => leastCommon(co2)[i] == num[i]);
-  }
-
-  console.log(parseInt(oxygen[0], 2) * parseInt(co2[0], 2));
-}
-
 if (require.main === module) {
-  const input = readInput('3');
+  const input = readInput(day(__filename));
 
   if (process.argv[2] == '1') part1(input);
-  if (process.argv[2] == '2') part2(input);
+  else if (process.argv[2] == '2') part2(input);
+  else {
+    console.log(`day ${day(__filename)}`);
+    console.time('part1');
+    part1(input);
+    console.timeEnd('part1');
+    console.time('part2');
+    part2(input);
+    console.timeEnd('part2');
+  }
 } else {
   const sample = `00100
 11110

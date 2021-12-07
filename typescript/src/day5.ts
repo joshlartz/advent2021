@@ -1,5 +1,4 @@
-import readInput from './readInput';
-import { mockLog } from './tests';
+import { readInput, day, mockLog } from './helpers';
 
 function part1(input) {
   const lines = parseInput(input);
@@ -105,10 +104,19 @@ function findOverlaps(grid) {
 }
 
 if (require.main === module) {
-  const input = readInput('5');
+  const input = readInput(day(__filename));
 
   if (process.argv[2] == '1') part1(input);
-  if (process.argv[2] == '2') part2(input);
+  else if (process.argv[2] == '2') part2(input);
+  else {
+    console.log(`day ${day(__filename)}`);
+    console.time('part 1');
+    part1(input);
+    console.timeEnd('part 1');
+    console.time('part 2');
+    part2(input);
+    console.timeEnd('part 2');
+  }
 } else {
   const sample = `0,9 -> 5,9
 8,0 -> 0,8
