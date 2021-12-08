@@ -85,9 +85,9 @@ function translate(output: string[], numbers) {
 }
 
 function parseInput(input: string[]) {
-  let signals = input.map(line => line.split(' | ')[0]).filter(x => x);
-  let outputs = input.map(line => line.split(' | ')[1]).filter(x => x);
-  return [signals.map(line => line.split(' ')), outputs.map(line => line.split(' '))];
+  let signals = input.map(line => line.split(' | ')[0]).filter(x => x).map(line => line.split(' '));
+  let outputs = input.map(line => line.split(' | ')[1]).filter(x => x).map(line => line.split(' '));
+  return [signals, outputs];
 }
 
 if (require.main === module) {
