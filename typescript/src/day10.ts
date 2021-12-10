@@ -8,15 +8,16 @@ const isOpen = (char: string) => Boolean(char.match(/\(|\[|\{|\</));
 const isClose = (char: string) => Boolean(char.match(/\)|\]|\}|\>/));
 
 function part1(input: string[]) {
-  console.log(findCorrupt(input).found.reduce((acc, each) => acc + corruptScores[each], 0));
+  console.log(findCorrupt(Array.from(input)).found.reduce((acc, each) => acc + corruptScores[each], 0));
 }
 
 function part2(input: string[]) {
-  findCorrupt(input)
+  let lines = Array.from(input);
+  findCorrupt(lines)
     .indexes.reverse()
-    .forEach(index => input.splice(index, 1));
+    .forEach(index => lines.splice(index, 1));
 
-  let closing = input.map(line =>
+  let closing = lines.map(line =>
     line
       .split('')
       .reverse()
