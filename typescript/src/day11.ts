@@ -1,32 +1,34 @@
 import { readInput, day, mockLog } from './helpers';
 
 function part1(input: number[][], steps: number) {
+  let grid = JSON.parse(JSON.stringify(input));
   let flashCount = 0;
 
   for (let s = 0; s < steps; s++) {
     let flashes = createGrid(10);
 
-    incrementOctopi(input);
+    incrementOctopi(grid);
 
-    function checkFlashes(input) {
-      for (let y = 0; y < input.length; y++) {
-        for (let x = 0; x < input[0].length; x++) {
-          if (input[y][x] > 9 && !flashes[y][x]) {
+    function checkFlashes(grid) {
+      for (let y = 0; y < grid.length; y++) {
+        for (let x = 0; x < grid[0].length; x++) {
+          if (grid[y][x] > 9 && !flashes[y][x]) {
             flashes[y][x]++;
             flashCount++;
-            incrementNeighbors(input, y, x);
-            checkFlashes(input);
+            incrementNeighbors(grid, y, x);
+            checkFlashes(grid);
           }
         }
       }
     }
-    checkFlashes(input);
-    resetFlashes(input, flashes);
+    checkFlashes(grid);
+    resetFlashes(grid, flashes);
   }
   console.log(flashCount);
 }
 
 function part2(input: number[][]) {
+  let grid = JSON.parse(JSON.stringify(input));
   let step = 0;
   let found = 0;
 
@@ -35,23 +37,23 @@ function part2(input: number[][]) {
     let flashes = createGrid(10);
     let flashCount = 0;
 
-    incrementOctopi(input);
+    incrementOctopi(grid);
 
-    function checkFlashes(input) {
-      for (let y = 0; y < input.length; y++) {
-        for (let x = 0; x < input[0].length; x++) {
-          if (input[y][x] > 9 && !flashes[y][x]) {
+    function checkFlashes(grid) {
+      for (let y = 0; y < grid.length; y++) {
+        for (let x = 0; x < grid[0].length; x++) {
+          if (grid[y][x] > 9 && !flashes[y][x]) {
             flashes[y][x]++;
             flashCount++;
-            incrementNeighbors(input, y, x);
-            checkFlashes(input);
+            incrementNeighbors(grid, y, x);
+            checkFlashes(grid);
           }
         }
       }
     }
-    checkFlashes(input);
-    if (flashCount === input.length * input[0].length) found = step;
-    resetFlashes(input, flashes);
+    checkFlashes(grid);
+    if (flashCount === grid.length * grid[0].length) found = step;
+    resetFlashes(grid, flashes);
   }
   console.log(found);
 }
