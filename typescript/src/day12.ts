@@ -5,48 +5,11 @@ const smallCave = cave => Boolean(cave.match(/[a-z]+/));
 const bigCave = cave => Boolean(cave.match(/[A-Z]+/));
 
 function part1(input: string[]) {
-  const caves = mapConnected(input);
-
-  let routes = [];
-
-  function travel(cave: string, route: string[] = []) {
-    if ((smallCave(cave) && route.includes(cave)) || route.includes('end')) return route;
-    route.push(cave);
-    if (cave === 'end') {
-      routes.push(route);
-      return route;
-    }
-    [...caves[cave]].forEach(nextCave => travel(nextCave, Array.from(route)));
-    return route;
-  }
-
-  [...caves['start']].forEach(cave => travel(cave, ['start']));
-
-  // routes.forEach(route => console.log(route.join(',')));
-  console.log(routes.length);
+  console.log(findRoutes(mapConnected(input)).length);
 }
 
 function part2(input: string[]) {
-  const caves = mapConnected(input);
-
-  let routes = [];
-
-  function travel(cave: string, route: string[] = []) {
-    if (route.includes('end')) return route;
-    if (smallCave(cave) && twoSmall(route) && route.includes(cave)) return route;
-    route.push(cave);
-    if (cave === 'end') {
-      routes.push(route);
-      return route;
-    }
-    [...caves[cave]].forEach(nextCave => travel(nextCave, Array.from(route)));
-    return route;
-  }
-
-  [...caves['start']].forEach(cave => travel(cave, ['start']));
-
-  // routes.forEach(route => console.log(route.join(',')));
-  console.log(routes.length);
+  console.log(findRoutes(mapConnected(input), true).length);
 }
 
 function mapConnected(input: string[]) {
@@ -74,6 +37,27 @@ function twoSmall(route: string[]) {
       return acc;
     }, {});
   return Object.values(freq).filter(count => count > 1).length;
+}
+
+function findRoutes(caves: Caves, allowSecondSmall = false) {
+  let routes = [];
+
+  function travel(cave: string, route: string[] = []) {
+    if (route.includes('end')) return route;
+    if (smallCave(cave) && route.includes(cave) && (allowSecondSmall ? twoSmall(route) : 1)) return route;
+    route.push(cave);
+    if (cave === 'end') {
+      routes.push(route);
+      return route;
+    }
+    [...caves[cave]].forEach(nextCave => travel(nextCave, Array.from(route)));
+    return route;
+  }
+
+  [...caves['start']].forEach(cave => travel(cave, ['start']));
+
+  // routes.forEach(route => console.log(route.join(',')));
+  return routes;
 }
 
 if (require.main === module) {
