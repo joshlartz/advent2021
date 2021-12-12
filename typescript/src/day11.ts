@@ -137,7 +137,7 @@ if (require.main === module) {
     expect(logSpy).toBeCalledWith(1656);
   });
 
-  test('part2 sample2', () => {
+  test('part2', () => {
     const logSpy = mockLog();
     part2(parseInput(sample));
     expect(logSpy).toBeCalledWith(195);
