@@ -33,8 +33,6 @@ pub fn part2(input: &Vec<u32>) -> u32 {
         .filter(|x| x > &0)
         .collect();
 
-    println!("{:?}", &three_sums);
-
     reduce(&three_sums)
 }
 
