@@ -3,10 +3,14 @@ lockfileVersion: 5.3
 specifiers:
   '@types/jest': ^27.0.3
   '@types/node': ^16
+  dijkstrajs: ^1.0.2
   jest: ^27.4.3
   ts-jest: ^27.0.7
   ts-node: ^10.4.0
   typescript: ^4.5.2
+
+dependencies:
+  dijkstrajs: 1.0.2
 
 devDependencies:
   '@types/jest': 27.0.3
@@ -1099,6 +1103,10 @@ packages:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==, tarball: https://nexus.core.cvent.org/nexus/repository/npm-public/diff/-/diff-4.0.2.tgz}
     engines: {node: '>=0.3.1'}
     dev: true
+
+  /dijkstrajs/1.0.2:
+    resolution: {integrity: sha512-QV6PMaHTCNmKSeP6QoXhVTw9snc9VD8MulTT0Bd99Pacp4SS1cjcrYPgBPmibqKVtMJJfqC6XvOXgPMEEPH/fg==, tarball: https://nexus.core.cvent.org/nexus/repository/npm-public/dijkstrajs/-/dijkstrajs-1.0.2.tgz}
+    dev: false
 
   /domexception/2.0.1:
     resolution: {integrity: sha512-yxJ2mFy/sibVQlu5qHjOkf9J3K6zgmCxgJ94u2EdvDOV09H+32LtRswEcUsmUWN72pVLOEnTSRaIVVzVQgS0dg==, tarball: https://nexus.core.cvent.org/nexus/repository/npm-public/domexception/-/domexception-2.0.1.tgz}
